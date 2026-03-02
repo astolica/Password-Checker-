@@ -17,6 +17,8 @@ int main(){
     char password[MAX_LIMIT];
     fgets(password, MAX_LIMIT, stdin);
     printf("Your password entered was %s Processing...\n", password);
+
+    
     
 }
 

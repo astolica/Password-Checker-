@@ -1,5 +1,7 @@
 # Libraries to use 
 import hashlib 
+import re 
+import sys 
 
 """
 A Python script to help verify the strength of passwords 
@@ -12,33 +14,47 @@ Not doing anything low-level (yet)
 
 
 def introMessage():
-    print("\nAstolica's password helper (^__^) ")
-    print("Give me a password for me to check!\n")\
+    print("Welcome to astolica's password helper (^__^)")
+    print("Give me a password for me to check!")\
     
-def countCase(x):
-    count = 0
-    for letter in x:
-        if letter.isupper():
-            count+=1
-    return count 
 
-def passwordAnalyzer(a):
-    if len(a) <= 16:
-            print(f"'{a}' is too short, make it at least 16 characters\n")
+def passwordAnalyzer(password):
+    results = [] # analyze password and return results based on its nature
+    if re.search(r'[\\",<>&:]', password):
+        results.append()
+
+    if len(password) < 16: # check if password is less than 16 (reccomended length)
+        results.append(f"'{password}' is too short, make it at least 16 characters. (-_-)\n")
     else: 
-         print(f"'{a}' is lengthy! Good!")
-    if countCase(a) < 1:
-         print("You need at least one uppercase letter for your password\n")
-    else:
-         print(f"{a} has capital letters, good!")
-        
-        
+        results.append(f"'{password}' is lengthy! Good! (¬‿¬ )")
 
-def main():
+    if not re.search(r'[A-Z]', password): # look for capital letters in password 
+        results.append("Missing uppercase letter(s), add one to make your password more secure.\n") 
+    else:
+        results.append("Uppercase letter(s) detected, good! (¬‿¬ )")
+
+    if not re.search(r'[0-9]', password): # look for numbers 0-9 in password string 
+        results.append("You don't have a number in this password, be sure to add one.\n")
+    else:
+        results.append("Number(s) detected, good. Add multiple to increase entropy.(¯▿¯)")
+    
+    if not re.search(r'[\D\W]', password):
+        results.append(f"There's no special character in this password, add one now! (#`Д´)")
+    else: 
+        results.append(f"Good use of special characters")
+
+
+        
+    header = f"\n--- Password Analysis: '{password}' ---\n" # Setup for a pretty return function
+    footer = "-" * len(header)
+    return f"{header}\n" + "\n".join(results) + f"\n{footer}\n"
+
+def main(): # main function 
     introMessage()
-    givenPassword = str(input())
+    givenPassword = input("> ")
     print(f"Your password was '{givenPassword}', let's check it shall we? (o_O)\n")
-    passwordAnalyzer(givenPassword)
+    print(passwordAnalyzer(givenPassword))
+    
     
 
 

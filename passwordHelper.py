@@ -11,9 +11,9 @@ Putting something else here later
 
 
 def introMessage():
-    print("Welcome to Schrift")
-    print("Press 1 for password verification\n"
-    "or 2 for password salting and storage via SQL")
+    print("Password Checker")
+    print("Enter 1 for password verification\n"
+    "or enter 2 to exit.")
     
 
 def passwordAnalyzer():
@@ -46,25 +46,14 @@ def passwordAnalyzer():
     footer = "-" * len(header)
     return f"{header}\n" + "\n".join(results) + f"\n{footer}\n"
 
-def hashAndSalt(password: str):
-    salt = secrets.token_hex(16)
-
 
 def main(): # main function 
     introMessage()
     choice = input("> ")
     if choice == "1":
         passwordAnalyzer()
-    elif choice == "2":
-        hashAndSalt()
-    else: 
-        print("No other valid parameter was given. Aborting now.")
+    if choice == "2": 
         sys.exit()
-
-    
-    
-
-
 
 if __name__ == "__main__":
     main()

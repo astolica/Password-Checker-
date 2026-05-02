@@ -28,14 +28,14 @@ def passwordAnalyzer():
     if not re.search(r'[A-Z]', password): # look for capital letters in password 
         results.append("Missing uppercase letter(s), add one to make your password more secure.\n") 
     else:
-        results.append("Goos use of uppercase letter(s) detected.")
+        results.append("Good use of uppercase letter(s) detected.")
 
     if not re.search(r'[0-9]', password): # look for numbers 0-9 in password string 
         results.append("You don't have a number in this password, be sure to add one.\n")
     else:
         results.append("Number(s) detected. Be sure to add multiple to increase entropy.")
     
-    if not re.search(r'[\D\W]', password):
+    if not re.search(r'[^a-zA-Z0-9]', password):
         results.append(f"There's no special character in this password, add one.")
     else: 
         results.append(f"Good use of special characters.")
@@ -49,9 +49,11 @@ def main(): # main function
     introMessage()
     choice = input("> ")
     if choice == "1":
-        passwordAnalyzer()
-    if choice == "2": 
+        print(passwordAnalyzer())
+    elif choice == "2": 
         sys.exit()
+    else: 
+        print("Not a valid option.")
 
 if __name__ == "__main__":
     main()
